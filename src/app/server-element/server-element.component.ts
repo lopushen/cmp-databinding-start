@@ -11,7 +11,9 @@ import {
   AfterViewInit,
   AfterViewChecked,
   OnDestroy,
-  ViewChild, ElementRef
+  ViewChild,
+  ElementRef,
+  ContentChild
 } from '@angular/core';
 
 @Component({
@@ -32,6 +34,8 @@ export class ServerElementComponent implements OnInit,
   @Input('srvElement') element: { name: string, content: string };
   @Input('name') name: string;
   @ViewChild('serverHeading', {static: true}) header: ElementRef;
+  // this annotation is used if we reference the element IN the content of the component - inside the brackets, namely
+  @ContentChild('contentParagraph', {static: true}) contentParagraph: ElementRef;
 
   constructor() {
   }
@@ -40,6 +44,7 @@ export class ServerElementComponent implements OnInit,
     console.log('Constructor called');
     // We will not see it here
     console.log('The header ' + this.header.nativeElement.textContent);
+    console.log('Text content of the paragraph ' + this.contentParagraph.nativeElement.textContent);
   }
 
   ngOnChanges(change: SimpleChanges) {
@@ -53,6 +58,7 @@ export class ServerElementComponent implements OnInit,
 
   ngAfterContentInit() {
     console.log('ngAfterContentInit called');
+    console.log('Text content of the paragraph ' + this.contentParagraph.nativeElement.textContent);
   }
 
   // this is how the method is auto-generated
@@ -64,6 +70,7 @@ export class ServerElementComponent implements OnInit,
     console.log('ngAfterViewInit called');
     // but we will see it here
     console.log('The header ' + this.header.nativeElement.textContent);
+    console.log('Text content of the paragraph ' + this.contentParagraph.nativeElement.textContent);
   }
 
   // this is how the method is auto-generated
