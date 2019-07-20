@@ -10,7 +10,8 @@ import {
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  ViewChild, ElementRef
 } from '@angular/core';
 
 @Component({
@@ -30,12 +31,15 @@ export class ServerElementComponent implements OnInit,
 
   @Input('srvElement') element: { name: string, content: string };
   @Input('name') name: string;
+  @ViewChild('serverHeading', {static: true}) header: ElementRef;
 
   constructor() {
   }
 
   ngOnInit() {
     console.log('Constructor called');
+    // We will not see it here
+    console.log('The header ' + this.header.nativeElement.textContent);
   }
 
   ngOnChanges(change: SimpleChanges) {
@@ -58,6 +62,8 @@ export class ServerElementComponent implements OnInit,
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit called');
+    // but we will see it here
+    console.log('The header ' + this.header.nativeElement.textContent);
   }
 
   // this is how the method is auto-generated
